@@ -36,11 +36,11 @@ func TestBcrypt_Hash(t *testing.T) {
 	t.Run("An long passphrase will fail", func(t *testing.T) {
 		t.Parallel()
 
-		const max = 72
+		const maxLength = 72
 
 		b := gosecure.Bcrypt{}
 
-		_, err := b.Hash(strings.Repeat("a", max+1))
+		_, err := b.Hash(strings.Repeat("a", maxLength+1))
 
 		assert.ErrorIs(t, err, bcrypt.ErrPasswordTooLong)
 	})

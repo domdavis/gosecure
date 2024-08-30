@@ -28,7 +28,7 @@ func ExampleArgon2id_Register() {
 	fmt.Println(*settings.Argon2id.Params)
 
 	// Output:
-	// {2 1 2 16 32}
+	// {2 1 16 16 32}
 }
 
 func TestArgon2id_Hash(t *testing.T) {
