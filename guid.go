@@ -17,7 +17,7 @@ func GUID() string {
 // GUIDFrom uses the given reader to generate the GUID. Used primarily for
 // testing. Will panic if there is an error reading from the reader.
 //
-//nolint:gomnd // These are fairly well known positions and values.
+//nolint:mnd // These are fairly well known positions and values.
 func GUIDFrom(reader io.Reader) string {
 	const dash byte = '-'
 

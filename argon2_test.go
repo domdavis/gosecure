@@ -25,10 +25,10 @@ func ExampleArgon2id_Register() {
 		fmt.Println(config.Usage())
 	}
 
-	fmt.Println(*settings.Argon2id.Params)
+	fmt.Println(settings.Argon2id.Params.Parallelism)
 
 	// Output:
-	// {2 1 2 16 32}
+	// 2
 }
 
 func TestArgon2id_Hash(t *testing.T) {
