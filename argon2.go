@@ -60,13 +60,18 @@ func (a *Argon2id) Register(opts *gofigure.Configuration) {
 	group.Add(gofigure.Optional("Argon2Id Memory", "argon2id-cost",
 		&a.Memory, argon2id.DefaultParams.Memory,
 		gofigure.NamedSources, gofigure.ReportValue,
+		"The amount of memory used by the algorithm (in kibibytes): "+
+			"deprecated, use argon2id-memory"))
+	group.Add(gofigure.Optional("Argon2Id Memory", "argon2id-memory",
+		&a.Memory, argon2id.DefaultParams.Memory,
+		gofigure.NamedSources, gofigure.ReportValue,
 		"The amount of memory used by the algorithm (in kibibytes)"))
 	group.Add(gofigure.Optional("Argon2Id Iterations", "argon2id-iterations",
 		&a.Iterations, argon2id.DefaultParams.Iterations,
 		gofigure.NamedSources, gofigure.ReportValue,
 		"The number of iterations over the memory"))
 	group.Add(gofigure.Optional("Argon2Id Parallelism", "argon2id-parallelism",
-		&a.Memory, uint32(runtime.NumCPU()),
+		&a.Parallelism, uint8(runtime.NumCPU()),
 		gofigure.NamedSources, gofigure.ReportValue,
 		"The number of threads (or lanes) used by the algorithm"))
 	group.Add(gofigure.Optional("Argon2Id Salt Length", "argon2id-salt-length",
