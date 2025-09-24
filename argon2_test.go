@@ -25,7 +25,7 @@ func ExampleArgon2id_Register() {
 		fmt.Println(config.Usage())
 	}
 
-	fmt.Println(settings.Argon2id.Params.Parallelism)
+	fmt.Println(settings.Argon2id.Parallelism)
 
 	// Output:
 	// 2
@@ -50,5 +50,39 @@ func TestArgon2id_Hash(t *testing.T) {
 		_, err := a.Hash("passphrase")
 
 		assert.Error(t, err)
+	})
+}
+
+func TestToUINT8(t *testing.T) {
+	t.Run("Handles values in range", func(t *testing.T) {
+		t.Parallel()
+
+		result := gosecure.ToUINT8(100)
+
+		assert.Equal(t, uint8(100), result)
+	})
+
+	t.Run("Handles above Max UINT8", func(t *testing.T) {
+		t.Parallel()
+
+		result := gosecure.ToUINT8(300)
+
+		assert.Equal(t, uint8(255), result)
+	})
+
+	t.Run("Handles zero", func(t *testing.T) {
+		t.Parallel()
+
+		result := gosecure.ToUINT8(0)
+
+		assert.Equal(t, uint8(0), result)
+	})
+
+	t.Run("Handles negative numbers", func(t *testing.T) {
+		t.Parallel()
+
+		result := gosecure.ToUINT8(-1)
+
+		assert.Equal(t, uint8(255), result) // Wraps due to uint8 conversion
 	})
 }

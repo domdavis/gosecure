@@ -3,6 +3,7 @@ package gosecure
 import (
 	"errors"
 	"fmt"
+	"math"
 	"runtime"
 
 	"bitbucket.org/idomdavis/gofigure"
@@ -71,7 +72,7 @@ func (a *Argon2id) Register(opts *gofigure.Configuration) {
 		gofigure.NamedSources, gofigure.ReportValue,
 		"The number of iterations over the memory"))
 	group.Add(gofigure.Optional("Argon2Id Parallelism", "argon2id-parallelism",
-		&a.Parallelism, uint8(runtime.NumCPU()),
+		&a.Parallelism, ToUINT8(runtime.NumCPU()),
 		gofigure.NamedSources, gofigure.ReportValue,
 		"The number of threads (or lanes) used by the algorithm"))
 	group.Add(gofigure.Optional("Argon2Id Salt Length", "argon2id-salt-length",
@@ -88,4 +89,13 @@ func (a *Argon2id) lazyInit() {
 	if a.Params == nil {
 		a.Params = argon2id.DefaultParams
 	}
+}
+
+func ToUINT8(in int) uint8 {
+	if in > math.MaxUint8 {
+		return math.MaxUint8
+	}
+
+	//nolint:gosec // we handle overflow above.
+	return uint8(in)
 }
