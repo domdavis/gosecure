@@ -25,7 +25,7 @@ func ExampleArgon2id_Register() {
 		fmt.Println(config.Usage())
 	}
 
-	fmt.Println(settings.Argon2id.Params.Parallelism)
+	fmt.Println(settings.Argon2id.Parallelism)
 
 	// Output:
 	// 2
